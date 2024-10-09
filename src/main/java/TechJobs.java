@@ -132,11 +132,7 @@ public class TechJobs {
             }
             System.out.println("*****");
 
-//
-////                System.out.println(jobData.keySet() + ": " + jobData.values());
-//                System.out.println(jobData.key + ": " + jobData.value);
 
-//
 
 
         }
