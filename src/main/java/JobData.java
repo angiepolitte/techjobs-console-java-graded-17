@@ -20,6 +20,25 @@ public class JobData {
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
+    // Look at JobData.findAll(). Notice that it’s returning the allJobs property,
+// which is a static property of the JobData class.
+// In general, this is not a great thing to do, since the person calling our
+// findAll method could then mess with the data that allJobs contains.
+// Fix this by creating a copy of allJobs.
+// Hint: Look at the constructors in the Oracle ArrayList documentation.
+
+        public JobData(ArrayList<HashMap<String, String>> allJobs) {
+            this.allJobs = allJobs;
+        }
+
+        public static ArrayList<HashMap<String, String>> getAllJobs() {
+        return allJobs;
+        }
+
+        public static void setAllJobs(ArrayList<HashMap<String, String>> allJobs) {
+        JobData.allJobs = allJobs;
+        }
+
     /**
      * Fetch list of all values from loaded data,
      * without duplicates, for a given column.
@@ -41,7 +60,7 @@ public class JobData {
                 values.add(aValue);
             }
         }
-
+        Collections.sort(values);
         return values;
     }
 
@@ -75,7 +94,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -99,13 +118,12 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) {
             for (String column : row.keySet()) {
                 String aValue = row.get(column);
-                if (aValue.contains(value)) {
-                    jobs.add(row);
+                if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                    if (!jobs.contains(row)) {
+                        jobs.add(row);
+                    }
 
             }
-
-
-
 
             }
         }
